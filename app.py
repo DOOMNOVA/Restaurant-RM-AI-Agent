@@ -10,7 +10,7 @@ def main():
     st.title("FoodieSpot Reservation Chatbot")
     
     #add background image for the app
-    #add_bg_image("images/FoodieSpot.jpg")
+    add_bg_image("images/FoodieSpot.jpg")
     
 #custom css for green chat text
     # st.markdown(
@@ -30,7 +30,7 @@ def main():
     
     #Generate 30 FoodieSpot restaurants with varying cuisines,locations and seating options
     RESTAURANTS = generate_restaurants()
-    restaurant_options = {f"{r['location']}": r['id'] for r in RESTAURANTS}
+    #restaurant_options = {f"{r['location']}": r['id'] for r in RESTAURANTS}
     unique_cuisines = sorted({c for restaurant in RESTAURANTS for c in restaurant["cuisine"]})
     unique_seating = sorted({s for restaurant in RESTAURANTS for s in restaurant["seating"]})
 

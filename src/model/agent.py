@@ -151,10 +151,13 @@ def system_prompt() -> str:
     sys_prompt = f"""
     You are FoodieBot, an AI assistant for FoodieSpot restaurants.
     Your tasks are:
-    - Find restaurants based on the user's specified cuisine and seating preferences. Always use available tools to search, list, and recommend restaurant options for the user to choose from.
+    - Find restaurants based on the user's specified cuisine and seating preferences. Always search for and list matching restaurants in your response
+    - Always use available tools to search for restaurant options and list them clearly for the user in a bullet list.
     - Make reservations by collecting the customer's name, reservation date(must be after the date {current_date}), preferred time slot (between 11:00 and 22:00) and guest count.
     - For time slots, accept inputs in either 12-hour (e.g., '5pm') or 24-hour (e.g., '17:00') format. Convert any 12-hour input to 24-hour format to ensure the time falls between 11:00 and 22:00. If the converted time is outside this range, ask the user for a valid time.
+    - When the user confirms a booking request, refer to the previously provided list and use the selected restaurant details to make the reservation. If the user does not specify which restaurant to book, ask for clarification.
     - When requested or after completing a reservation, display existing reservations in a Markdown table with columns: Name, Date, Time Slot, Number of Guests, Restaurant, Seating, and Cuisine.
+   
 
     Rules:
     - Only assist with FoodieSpot reservations; if unrelated, reply: 
@@ -163,7 +166,6 @@ def system_prompt() -> str:
     - "intent" must be "find_restaurant", "make_reservation", or "chat". Do not reference internal function names or tool calls (find_restaurant, make_reservation) in your output.
     - Do not assume or generate missing details; only use what the user provides or retrieved via tools.
     - For every new reservation request, if any essential detail (cuisine, seating, customer name, date, time slot, or number of guests) is missing, ask the user to provide it. If any detail is already known from previous reservations, ask the user whether to reuse the known value or provide a new one. Always confirm all details with the user before finalizing the reservation.
-    - 
     - Prevent duplicate bookings: if a reservation exactly matches an existing one (same date, restaurant, time slot, and seating), notify the user that it is already booked.
 
 
@@ -339,12 +341,17 @@ def call_groq_llama(conversation_history, user_message,RESTAURANTS:list):
             messages=messages,
             temperature=0)
         except Exception:
-            return {"response": "Unfortunately, there is a connection issues with the model. Please try after some time."}
+            return {"intent": "chat", "parameters": {}, "response": "Unfortunately, there is a connection issue with the model. Please try again later."}
         
         final_response = second_response.choices[0].message.content
         try:
             final_result = json.loads(final_response)
-            return final_result
+            
+            # Ensure the response contains required keys
+            if isinstance(final_result, dict) and "response" in final_result:
+                return final_result
+            else:
+                raise ValueError("Missing keys")
         except json.JSONDecodeError:
             #return {"response": final_response}
             return {"intent": "chat", "parameters": {}, "response": final_response}
@@ -359,30 +366,4 @@ def call_groq_llama(conversation_history, user_message,RESTAURANTS:list):
         
         
 
-    # if response and response.choices:
-    #     try:
-    #         #parse the returnsed json message content
-            
-    #         response_text = response.choices[0].message.content
-            
-    #         if response_text:
-    #             response_text = response_text.strip()
-    #         else:
-    #             print(response)
-    #             return {"intent": "chat", "parameters": {}, "response": "No content recieved from the endpoint."}
-            
-    #         api_result = json.loads(response_text)
-            
-    #     except json.JSONDecodeError:
-    #         # if parsing fails,fall back to default
-    #         return {"intent":"chat","parameters":{}, "response": response_text}
-    #     return api_result
-    # else:
-    #     return {"intent": "chat", "parameters": {}, "response":"Error reaching the service. I apologize for the inconvenience. Please try again later."}
-    
-    
-    
-    #if response.status_code == 200:
-    #    return response.json().get("choices", [{}])[0].get("message", {}).get("content", "I couldn't process your request.")
-    #else:
-    #    return "Error reaching service. Please try again later."
+   

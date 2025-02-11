@@ -42,11 +42,12 @@ def add_bg_image(img_file):
         f"""
         <style>
         .stApp {{
-            background-image: url("data:image/jpg;base64,{encoded}");
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+            url("data:image/jpg;base64,{encoded}");
             background-size: contain;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            background-position: top center;
+            background-position: center center;
         }}
         </style>
         """,
