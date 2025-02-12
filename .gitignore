@@ -1,3 +1,5 @@
 .codegpt
 .env
 .venv
+.gitignore
+

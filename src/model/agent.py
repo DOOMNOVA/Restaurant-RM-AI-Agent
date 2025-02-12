@@ -23,7 +23,7 @@ client = Groq()
 #---------------------------------------------TOOL PART------------------------------------------------------------------
 #Find restaurants based on criteria (help user decide on a restaurant)-TOOL 1
 
-def find_restuarants(criteria: dict, RESTAURANTS: list) -> str:
+def find_restaurants(criteria: dict, RESTAURANTS: list) -> str:
     """
     Find restaurants that match given criteria.
     Args:
@@ -268,7 +268,7 @@ def call_groq_llama(conversation_history:list, user_message:str,RESTAURANTS:list
         
         #define a mappig from tool calls names to respective functions
         available_functions = {
-            "find_restaurants": find_restuarants,
+            "find_restaurants": find_restaurants,
             "make_reservation": make_reservation
         }
         
