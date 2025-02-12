@@ -70,7 +70,7 @@ In this project, a simple conversational AI agent is developed to streamline the
 The main files in this repo are `appy.py`, `src/model/agent.py` and `src/utils_data/restaurant.py`. The file `app.py` contains the Streamlit app code and the file `src/model/agent.py` contains the code for the calling the model api from Groq along with the System prompt and the two tools the model uses. Finally the file `src/utils_data/restaurant.py` contains the function to generate the restaurant data and some helper functions.
 
 
-The App's UI is developed using Streamlit and the customer can select the cuisine and seating preferences to find matching restaurants in the FoodieSpot restaurant chain. You can either use cuisine or seating or both to get the restaurant matches. An example reservation process is shown in the above GIF.
+The App's UI is developed using Streamlit and the customer can select the cuisine and seating preferences to find matching restaurants in the FoodieSpot restaurant chain. You can either use cuisine or seating or both to get the restaurant matches. An example reservation process is shown in the above GIF. There are also example videos of the app's functioning inside `Chatbot_video`.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
