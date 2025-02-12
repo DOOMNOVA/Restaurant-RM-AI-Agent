@@ -5,6 +5,21 @@ from src.model.agent import call_groq_llama
 
 
 def main():
+    """
+    Main function to run the FoodieSpot Reservation Chatbot application.
+    This function sets up the Streamlit page configuration, initializes the conversation history,
+    displays the chat interface, and handles user input for restaurant selection and messaging.
+    Key functionalities:
+    - Sets the page title and icon.
+    - Displays the title and background image.
+    - Generates a list of FoodieSpot restaurants with varying cuisines, locations, and seating options.
+    - Initializes the conversation history in the session state.
+    - Displays the chat history between the user and the assistant.
+    - Provides a form for user input, including cuisine and seating selection.
+    - Handles form submission, updates the conversation history, and calls the GroqCloud API to process user input.
+    - Displays the assistant's response and reruns the app to update the conversation.
+    Note: This function relies on external functions such as `add_bg_image`, `generate_restaurants`, and `call_groq_llama`.
+    """
     
     st.set_page_config(page_title="FoodieSpot Chatbot",page_icon="🍽️")
     st.title("FoodieSpot Reservation Chatbot")
@@ -12,25 +27,10 @@ def main():
     #add background image for the app
     add_bg_image("images/FoodieSpot.jpg")
     
-#custom css for green chat text
-    # st.markdown(
-    #     """
-    #     <style>
-    #         .matrix-green {
-    #             color: #00FF00;
-    #             font-family: monospace;
-    #         }
-    #     </style>
-    #     """,
-    #     unsafe_allow_html=True
-    # )    
-    
-    
-    
+
     
     #Generate 30 FoodieSpot restaurants with varying cuisines,locations and seating options
     RESTAURANTS = generate_restaurants()
-    #restaurant_options = {f"{r['location']}": r['id'] for r in RESTAURANTS}
     unique_cuisines = sorted({c for restaurant in RESTAURANTS for c in restaurant["cuisine"]})
     unique_seating = sorted({s for restaurant in RESTAURANTS for s in restaurant["seating"]})
 
@@ -44,11 +44,7 @@ def main():
         
     st.subheader("Chat")
     
-    #black chat background container
-    #st.markdown('<div class="chat-container">',unsafe_allow_html=True)
-    
-    
-    
+   
     
     for entry in st.session_state.conversation:
         if entry["sender"]=="user":
@@ -58,30 +54,11 @@ def main():
 
             
             
-    #st.markdown("</div>",unsafe_allow_html=True)
+
     
             
-    #User input form with drop down selection
+    #User input form with drop down selection for cuisine and seating preference.
     with st.form(key="chat_form", clear_on_submit=True):
-        
-        # = st.selectbox("Or Select a restaurant:", ["None"] + list(restaurant_options.keys()))
-        #  # --- Restaurant selection (outside the form) ---
-        # selected_restaurant = st.selectbox("Select a restaurant:", ["None"] + list(restaurant_options.keys()), key="selected_restaurant")
-    
-        # # Based on the selected restaurant, update cuisine and seating options.
-        # if selected_restaurant != "None":
-        #     # Find the restaurant object that matches the selected location.
-        #     rest_obj = next((r for r in RESTAURANTS if r["location"] == selected_restaurant), None)
-        #     if rest_obj:
-        #         cuisine_options = ["None"] + rest_obj["cuisine"]
-        #         seating_options = ["None"] + rest_obj["seating"]
-        #     else:
-        #         cuisine_options = ["None"] + unique_cuisines
-        #         seating_options = ["None"] + unique_seating
-        # else:
-        #     cuisine_options = ["None"] + unique_cuisines
-        #     seating_options = ["None"] + unique_seating
-                
         
         
         selected_cuisine = st.selectbox("Select Cuisine", ["None"] + unique_cuisines)
@@ -94,9 +71,6 @@ def main():
         #add the user message to conversation history
         combined_input = user_input.strip()
         
-        # if selected_restaurant not in ["None", "", None]:
-        #     combined_input += f" Selected Location: {selected_restaurant}"
-         
         if selected_cuisine not in ["None", "", None]:
             combined_input += f". Selected Cuisine: {selected_cuisine}"
            

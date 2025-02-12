@@ -3,8 +3,20 @@ import streamlit as st
 import base64
 
 
-#Helper function 
+#Helper function for generating the data
 def generate_restaurants(n=30) -> list: 
+    """
+    Generates a list of restaurant dictionaries with random cuisines and seating options.
+    Args:
+        n (int): The number of restaurants to generate. Default is 30.
+    Returns:
+        list: A list of dictionaries, each representing a restaurant with the following keys:
+            - id (int): The unique identifier of the restaurant.
+            - location (str): The name of the restaurant location.
+            - cuisine (list): A list of randomly selected cuisines.
+            - seating (list): A list of randomly selected seating options.
+    """
+    
     cuisines = ["Italian", "Chinese", "Indian", "Mexican", "French", "Japanese", "Mediterranean"]
     seating_options = ["indoor", "outdoor", "rooftop", "private"]
     
@@ -36,6 +48,18 @@ def generate_restaurants(n=30) -> list:
 # encode image in base64 and add it to the background using CSS
 
 def add_bg_image(img_file):
+    """
+    Adds a background image to a Streamlit app.
+
+    This function reads an image file, encodes it in base64, and sets it as the background
+    image of a Streamlit app using custom CSS.
+
+    Args:
+        img_file (str): The path to the image file to be used as the background.
+
+    Returns:
+        None
+    """
     with open(img_file,"rb") as img:
         encoded = base64.b64encode(img.read()).decode()
     st.markdown(
