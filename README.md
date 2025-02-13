@@ -40,7 +40,7 @@
 </div>
 
 You can access the Use case documentation on this Notion Page:
-      [Use Case Doc](https://www.notion.so/Reservation-Management-Agent-Assignment-FoodieSpot-19115d7d10088033887af4be36d8d6eb?pvs=4)
+      [Use Case Doc](https://www.notion.so/Reservation-Management-Agent-Use-case-document-FoodieSpot-19115d7d10088033887af4be36d8d6eb?pvs=4)
     
 ![FoodiSpot](images/Foodie_3.webp)
 
@@ -71,6 +71,9 @@ The main files in this repo are `appy.py`, `src/model/agent.py` and `src/utils_d
 
 
 The App's UI is developed using Streamlit and the customer can select the cuisine and seating preferences to find matching restaurants in the FoodieSpot restaurant chain. You can either use cuisine or seating or both to get the restaurant matches. An example reservation process is shown in the above GIF. There are also example videos of the app's functioning inside `Chatbot_video`.
+
+
+
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
