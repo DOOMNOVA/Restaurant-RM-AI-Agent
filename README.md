@@ -34,7 +34,7 @@
 <h3 align="center">Conversational AI agent for Restaurant Reservation Management Process</h3>
 
   <p align="center">
-    This repo includes the source code for developing a Conversational AI agent which can help make reservations at a Restaurant Chain with 30 locations. The agent suggests the restaurants based on the type of cuisine and seating preference of the customer. The application uses Groq for Llama 3.1-8b and it uses a Streamlit for the chat UI.
+    This repo includes the source code for developing a POC (Proof-of-Concept) Conversational AI agent which can help make reservations at a Restaurant Chain with 30 locations. The agent suggests the restaurants based on the type of cuisine and seating preference of the customer. The application uses Groq for Llama 3.1-8b and it uses a Streamlit for the chat UI.
     
   </p>
 </div>
