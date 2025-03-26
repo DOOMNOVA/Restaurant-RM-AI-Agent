@@ -39,8 +39,8 @@
   </p>
 </div>
 
-You can access the Use case documentation on this Notion Page:
-      [Use Case Doc](https://www.notion.so/Reservation-Management-Agent-Use-case-document-FoodieSpot-19115d7d10088033887af4be36d8d6eb?pvs=4)
+<!--You can access the Use case documentation on this Notion Page:
+      [Use Case Doc](https://www.notion.so/Reservation-Management-Agent-Use-case-document-FoodieSpot-19115d7d10088033887af4be36d8d6eb?pvs=4)--->
     
 ![FoodiSpot](images/Foodie_3.webp)
 
